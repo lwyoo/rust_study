@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
 
-members = [
+members = ["playground/example_01", "playground/example_controlFlow",
 	"playground/hello_world",
 ]
