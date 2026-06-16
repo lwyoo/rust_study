@@ -7,6 +7,10 @@ name = "example_01"
 version = "0.1.0"
 
 [[package]]
+name = "example_array"
+version = "0.1.0"
+
+[[package]]
 name = "example_controlFlow"
 version = "0.1.0"
 
