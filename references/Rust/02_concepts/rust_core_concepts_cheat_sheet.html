@@ -1,0 +1,231 @@
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  
+  .sheet { padding: 0; background: var(--color-background-primary); }
+  
+  .header {
+    background: linear-gradient(135deg, #1f4e78 0%, #2d5a8c 100%);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+  }
+  .header h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .header p { font-size: 12px; opacity: 0.9; }
+  
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 0.5px solid var(--color-border-tertiary); margin-top: 0; }
+  
+  .card {
+    padding: 1.25rem;
+    border-right: 0.5px solid var(--color-border-tertiary);
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .card:nth-child(2n) { border-right: none; }
+  .card:nth-last-child(-n+2) { border-bottom: none; }
+  
+  .card h2 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #185FA5;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .rule {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    margin-bottom: 10px;
+    padding-left: 16px;
+    position: relative;
+  }
+  .rule::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #0070C0;
+  }
+  
+  .code-block {
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 10px;
+    line-height: 1.4;
+    color: #D05538;
+    overflow-x: auto;
+    margin: 8px 0;
+  }
+  
+  .highlight { background: #FFF8DC; padding: 0 3px; border-radius: 2px; }
+  
+  .diagram {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    font-size: 11px;
+  }
+  .box { 
+    flex: 1; 
+    background: #E6F1FB; 
+    border: 0.5px solid #185FA5;
+    border-radius: 3px;
+    padding: 6px;
+    text-align: center;
+    font-weight: 500;
+    color: #0C447C;
+  }
+  .arrow { color: #185FA5; font-weight: bold; }
+  
+  .footer {
+    padding: 1rem 1.25rem;
+    background: var(--color-background-secondary);
+    border-top: 0.5px solid var(--color-border-tertiary);
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    text-align: center;
+  }
+</style>
+
+<div class="sheet">
+  <div class="header">
+    <h1>🦀 Rust Core Concepts</h1>
+    <p>5-minute cheat sheet for quick review</p>
+  </div>
+  
+  <div class="grid">
+    <!-- Ownership -->
+    <div class="card">
+      <h2>Ownership</h2>
+      <div class="rule">각 값은 <span class="highlight">하나의 owner</span>를 가짐</div>
+      <div class="rule">Owner가 스코프를 벗어나면 <span class="highlight">자동 drop</span></div>
+      <div class="rule">소유권은 <span class="highlight">move</span> 또는 <span class="highlight">clone</span></div>
+      <div class="diagram">
+        <div class="box">s1</div>
+        <div class="arrow">→ move →</div>
+        <div class="box">s2 ✓</div>
+      </div>
+      <div class="code-block">let s1 = String::from("hi");
+let s2 = s1;  // move
+// println!("{}", s1); ❌ error</div>
+    </div>
+    
+    <!-- Borrowing -->
+    <div class="card">
+      <h2>Borrowing</h2>
+      <div class="rule">불변 참조: <span class="highlight">&T</span> (여러 개 가능)</div>
+      <div class="rule">가변 참조: <span class="highlight">&mut T</span> (하나만)</div>
+      <div class="rule">두 타입을 <span class="highlight">동시에 사용 불가</span></div>
+      <div class="diagram">
+        <div style="flex: 1; text-align: center; font-size: 11px;">
+          <div class="box" style="margin-bottom: 4px;">여러 &</div>
+          <div style="color: #185FA5; font-size: 10px;">또는</div>
+          <div class="box" style="margin-top: 4px;">하나의 &mut</div>
+        </div>
+      </div>
+      <div class="code-block">let mut s = String::from("hi");
+let r1 = &s;      // ok
+let r2 = &s;      // ok
+let r3 = &mut s;  // ❌ error</div>
+    </div>
+    
+    <!-- Pattern Matching -->
+    <div class="card">
+      <h2>Pattern Matching</h2>
+      <div class="rule"><span class="highlight">match</span>로 모든 경우 처리</div>
+      <div class="rule">Enum 변수 <span class="highlight">분해 가능</span></div>
+      <div class="rule">if let으로 <span class="highlight">간략하게</span></div>
+      <div class="code-block">match msg {
+  Message::Quit => "quit",
+  Message::Text(s) => s,
+  _ => "other",
+}
+// if let Message::Text(s) = msg { }</div>
+    </div>
+    
+    <!-- Error Handling -->
+    <div class="card">
+      <h2>Error Handling</h2>
+      <div class="rule">성공/실패: <span class="highlight">Result&lt;T, E&gt;</span></div>
+      <div class="rule">값 있음/없음: <span class="highlight">Option&lt;T&gt;</span></div>
+      <div class="rule">? operator로 <span class="highlight">에러 전파</span></div>
+      <div class="code-block">fn parse(s: &str) -> Result&lt;i32, E&gt; {
+  s.parse()?  // ? = early return
+}
+match file.read() {
+  Ok(data) => use(data),
+  Err(e) => handle(e),
+}</div>
+    </div>
+    
+    <!-- Traits -->
+    <div class="card">
+      <h2>Traits & Generics</h2>
+      <div class="rule">Trait = 인터페이스 (메서드 서명)</div>
+      <div class="rule">Generic = 타입 변수 T</div>
+      <div class="rule">Trait bounds로 <span class="highlight">제약</span></div>
+      <div class="code-block">trait Animal {
+  fn speak(&self);
+}
+fn print&lt;T: Animal&gt;(a: &T) {
+  a.speak();
+}
+impl Animal for Dog { ... }</div>
+    </div>
+    
+    <!-- Lifetime -->
+    <div class="card">
+      <h2>Lifetime</h2>
+      <div class="rule">참조의 <span class="highlight">유효 범위</span></div>
+      <div class="rule">컴파일러가 <span class="highlight">자동 추론</span> (대부분)</div>
+      <div class="rule">명시 필요시: <span class="highlight">'a</span> 사용</div>
+      <div class="diagram">
+        <div style="flex: 1; font-size: 10px; color: var(--color-text-secondary);">
+          보통 함수에서 자동으로 결정됨
+        </div>
+      </div>
+      <div class="code-block">fn longest&lt;'a&gt;(x: &'a str, y: &'a str)
+  -> &'a str
+{
+  if x.len() > y.len() { x } else { y }
+}</div>
+    </div>
+    
+    <!-- Copy vs Clone -->
+    <div class="card">
+      <h2>Copy vs Clone</h2>
+      <div class="rule"><span class="highlight">Copy</span>: 기본 타입 (i32, bool)</div>
+      <div class="rule">→ Assignment 후에도 <span class="highlight">두 값 모두 유효</span></div>
+      <div class="rule"><span class="highlight">Clone</span>: String, Vec (명시적)</div>
+      <div class="rule">→ 깊은 복사, <span class="highlight">s.clone()</span></div>
+      <div class="code-block">let x = 5;
+let y = x;      // Copy ✓
+println!("{}", x);
+
+let s = String::from("hi");
+let s2 = s.clone();  // Clone ✓</div>
+    </div>
+    
+    <!-- Collections -->
+    <div class="card">
+      <h2>Collections</h2>
+      <div class="rule"><span class="highlight">Vec&lt;T&gt;</span>: 동적 배열</div>
+      <div class="rule"><span class="highlight">HashMap&lt;K,V&gt;</span>: 해시맵</div>
+      <div class="rule">Iterator: <span class="highlight">.iter()</span>, <span class="highlight">.map()</span>, <span class="highlight">.filter()</span></div>
+      <div class="code-block">let v = vec![1,2,3];
+let sum: i32 = v.iter()
+  .filter(|&&x| x > 1)
+  .map(|x| x * 2)
+  .sum();  // 10</div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    ⭐ <strong>최우선:</strong> Ownership → Borrowing → Pattern Matching → Error Handling  |  <strong>tip:</strong> 컴파일러 메시지를 읽으세요. 매우 친절합니다.
+  </div>
+</div>

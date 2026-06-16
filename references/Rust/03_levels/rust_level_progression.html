@@ -1,0 +1,241 @@
+<style>
+  .container { padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  
+  .level-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 8px;
+    padding: 0;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  
+  .level-header {
+    padding: 12px 16px;
+    background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-text-secondary) 100%);
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  
+  .level-1 .level-header { background: linear-gradient(135deg, #3B8BD4 0%, #185FA5 100%); }
+  .level-2 .level-header { background: linear-gradient(135deg, #639922 0%, #3B6D11 100%); }
+  .level-3 .level-header { background: linear-gradient(135deg, #BA7517 0%, #854F0B 100%); }
+  .level-4 .level-header { background: linear-gradient(135deg, #A32D2D 0%, #791F1F 100%); }
+  .level-5 .level-header { background: linear-gradient(135deg, #534AB7 0%, #3C3489 100%); }
+  
+  .level-content {
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  
+  .level-col h4 {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  
+  .skill-item {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+    padding-left: 16px;
+    position: relative;
+  }
+  
+  .skill-item::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--color-text-info);
+  }
+  
+  .criteria {
+    grid-column: 1 / -1;
+    background: var(--color-background-secondary);
+    border-top: 0.5px solid var(--color-border-tertiary);
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+  }
+  
+  .timeline {
+    grid-column: 1 / -1;
+    background: var(--color-background-secondary);
+    border-top: 0.5px solid var(--color-border-tertiary);
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--color-border-tertiary);
+    border-radius: 3px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: var(--color-text-info);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+  
+  .summary {
+    padding: 12px 16px;
+    background: var(--color-background-secondary);
+    border-top: 0.5px solid var(--color-border-tertiary);
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+  
+  .stat {
+    display: inline-block;
+    margin-right: 16px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+</style>
+
+<div class="container">
+  <!-- Level 1 -->
+  <div class="level-card level-1">
+    <div class="level-header">Level 1: 기초 문법 (초보) • 2주</div>
+    <div class="level-content">
+      <div class="level-col">
+        <h4>학습 내용</h4>
+        <div class="skill-item">변수 & 타입 시스템</div>
+        <div class="skill-item">함수 정의</div>
+        <div class="skill-item">제어문 (if, loop)</div>
+      </div>
+      <div class="level-col">
+        <h4>도달 기준</h4>
+        <div class="skill-item">cargo 사용 능숙</div>
+        <div class="skill-item">간단한 CLI 도구</div>
+        <div class="skill-item">패턴 매칭 기초</div>
+      </div>
+      <div class="criteria">
+        ✓ "Hello, World"부터 간단한 계산기까지 만들 수 있음
+      </div>
+    </div>
+  </div>
+  
+  <!-- Level 2 -->
+  <div class="level-card level-2">
+    <div class="level-header">Level 2: 메모리 관리 (중급) • 3주 ⭐ 핵심</div>
+    <div class="level-content">
+      <div class="level-col">
+        <h4>학습 내용</h4>
+        <div class="skill-item">Ownership 규칙</div>
+        <div class="skill-item">Borrowing & References</div>
+        <div class="skill-item">Lifetime annotation</div>
+      </div>
+      <div class="level-col">
+        <h4>도달 기준</h4>
+        <div class="skill-item">Move 완벽 이해</div>
+        <div class="skill-item">차용 규칙 숙달</div>
+        <div class="skill-item">컴파일 에러 해결</div>
+      </div>
+      <div class="criteria">
+        ✓ Ownership의 3가지 규칙을 설명 가능 / 소유권 흐름 다이어그램 가능
+      </div>
+    </div>
+  </div>
+  
+  <!-- Level 3 -->
+  <div class="level-card level-3">
+    <div class="level-header">Level 3: 고급 타입 시스템 (상급) • 3주</div>
+    <div class="level-content">
+      <div class="level-col">
+        <h4>학습 내용</h4>
+        <div class="skill-item">Traits & Generics</div>
+        <div class="skill-item">Pattern Matching</div>
+        <div class="skill-item">Error Handling</div>
+      </div>
+      <div class="level-col">
+        <h4>도달 기준</h4>
+        <div class="skill-item">Trait 정의 & 구현</div>
+        <div class="skill-item">복잡한 패턴 분해</div>
+        <div class="skill-item">Result & Option 마스터</div>
+      </div>
+      <div class="criteria">
+        ✓ 설정 파서 / 데이터 구조 구현 가능 / 재사용 가능한 코드 작성
+      </div>
+    </div>
+  </div>
+  
+  <!-- Level 4 -->
+  <div class="level-card level-4">
+    <div class="level-header">Level 4: 실무 능력 (고급) • 4주</div>
+    <div class="level-content">
+      <div class="level-col">
+        <h4>학습 내용</h4>
+        <div class="skill-item">모듈 시스템</div>
+        <div class="skill-item">Async/Await</div>
+        <div class="skill-item">멀티스레딩</div>
+        <div class="skill-item">테스팅</div>
+      </div>
+      <div class="level-col">
+        <h4>도달 기준</h4>
+        <div class="skill-item">프로젝트 구조화</div>
+        <div class="skill-item">Tokio 기반 프로그램</div>
+        <div class="skill-item">스레드 간 통신</div>
+        <div class="skill-item">단위 테스트 작성</div>
+      </div>
+      <div class="criteria">
+        ✓ 웹 서버 / 병렬 처리 프로그램 / 500-1000줄 실무 코드 작성 가능
+      </div>
+    </div>
+  </div>
+  
+  <!-- Level 5 -->
+  <div class="level-card level-5">
+    <div class="level-header">Level 5: 전문가 (최고급) • 지속 성장</div>
+    <div class="level-content">
+      <div class="level-col">
+        <h4>학습 내용</h4>
+        <div class="skill-item">Unsafe Rust & FFI</div>
+        <div class="skill-item">성능 최적화</div>
+        <div class="skill-item">Advanced Patterns</div>
+        <div class="skill-item">도메인 특화</div>
+      </div>
+      <div class="level-col">
+        <h4>도달 기준</h4>
+        <div class="skill-item">FFI로 C 연동</div>
+        <div class="skill-item">Profiling & Benchmarking</div>
+        <div class="skill-item">라이브러리 설계</div>
+        <div class="skill-item">ROS2, 게임, 웹 등</div>
+      </div>
+      <div class="criteria">
+        ✓ 오픈소스 기여 / 프로덕션 애플리케이션 / 자동차 미들웨어 개발
+      </div>
+    </div>
+  </div>
+  
+  <!-- 요약 -->
+  <div style="padding: 16px; background: var(--color-background-secondary); border-radius: 8px; margin-top: 12px;">
+    <h3 style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">Dogyeom의 추천 일정</h3>
+    <div style="font-size: 11px; color: var(--color-text-secondary); line-height: 1.7;">
+      <span class="stat">현재: Level 1.5</span><br>
+      <span class="stat">6-7월: Level 2 완료 (3주)</span><br>
+      <span class="stat">7-8월: Level 3 완료 (3주)</span><br>
+      <span class="stat">8-9월: Level 4 진행 (4주)</span><br>
+      <span class="stat">9월+: Level 5 시작 (ROS2, 자동차 미들웨어)</span><br><br>
+      💡 42dot 입사 전: Level 2-3 완료 (8주) + Level 4 입문<br>
+      💡 입사 후: Level 4-5를 실무 프로젝트로 습득
+    </div>
+  </div>
+</div>
